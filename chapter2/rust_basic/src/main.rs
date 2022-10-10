@@ -1,6 +1,7 @@
 fn main() {
     chap2_1();
     chap2_2();
+    chap2_3();
 }
 
 // 変数とデータ型
@@ -37,5 +38,43 @@ fn chap2_1() {
 
 // 関数の実装
 fn chap2_2(){
+    fn add(x: i32, y: i32) -> i32{
+        return x + y;
+    }
+    let sum = add(1,2);
+    println!("{}", sum);
+
+    // if式
+    let a = if true{
+        10
+    } else{
+        20
+    };
+    println!("{}", a);   
+
+    let some: Result<&str, &str> = Ok("ok");
+    println!("{:?}", some);
+    let err: Result<&str, &str> = Err("err");
+    println!("{:?}", err);
+
+    // ?演算子
+    fn always_error() -> Result<(), String>{
+        Err("常にエラーだよ".to_string())
+    }
+
+    fn might_fail() -> Result<(), String> {
+        let _reault = always_error()?;
+        // alwats_error()? で早期リターンされるのでOkまで進まない
+        Ok(())
+    }
+    
+    let message = match might_fail() {
+        Ok(_) => "処理に成功".to_string(),
+        Err(cause_message) => cause_message,
+    };
+    println!("{}", message);
+}
+
+fn chap2_3(){
 
 }
